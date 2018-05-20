@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+
+
+	<link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet" />
+	<link rel="stylesheet" href="components/loader.css">
+	<link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+	<link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style2.css">
+	<script>
+
+	</script>
+</head>
+
+<body ng-app="my-app" onload="initialize()">
+	<script src="components/loader.js"></script>
+	<script src="lib/angular/angular.min.js"></script>
+	<script src="lib/onsenui/js/onsenui.min.js"></script>
+	<script src="lib/onsenui/js/angular-onsenui.min.js"></script>
+
+	<script src="js/app.js"></script>
+	<script src="js/mapAPI.js"></script>
+	<script src="js/map.js"></script>
+	<script src="js/detail.js"></script>
+
+	<script src="js/MUSIC.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVy1My4f64VyFUBXlgtzw1Wp1-T9eSj4E"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/i18n/angular-locale_ja.js"></script>
+    <script src="./js/google-plus-signin.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+
+
+
+
+    <ons-popover direction="up" var="popover" cancelable="true">
+    <div style="padding: 10px; text-align: center;">
+        <p>
+            評価内訳
+        </p>
+    </div>
+</ons-popover>
+	<ons-navigator var="navi" page="splitter.html"></ons-navigator>
+	<ons-template id="splitter.html">
+		<ons-page>
+			<ons-splitter ng-controller="AppController as app" var="splitter">
+				<ons-splitter-side side="left" width="220px" collapse swipeable swipe-target-width="30px">
+					<ons-page>
+						<ons-list>
+							<ons-list-item ng-click="app.load('home.html')" tappable>
+								トイレはどこ？
+							</ons-list-item>
+							<ons-list-item ng-click="app.load('settings.html')" tappable>
+								ログイン
+							</ons-list-item>
+							<ons-list-item ng-click="app.load('about.html')" tappable>
+								せってい
+							</ons-list-item>
+						</ons-list>
+					</ons-page>
+				</ons-splitter-side>
+				<ons-splitter-content page="home.html"></ons-splitter-content>
+			</ons-splitter>
+		</ons-page>
+	</ons-template>
+
+	<ons-template id="home.html">
+		<ons-page>
+			<ons-toolbar>
+				<div class="left">
+					<ons-toolbar-button ng-click="splitter.left.open()">
+						<ons-icon icon="md-menu"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center">
+					トイレログ
+				</div>
+				<div class="right">
+					<!-- 検索ボタン -->
+					<ons-toolbar-button>
+						<ons-icon icon="fa-search"></ons-icon>
+					</ons-toolbar-button>
+					<!-- 音姫ボタン -->
+					<ons-toolbar-button>
+						<ons-icon icon="fa-music" onclick="sound()"></ons-icon>
+					</ons-toolbar-button>
+					<!-- 絞り込みボタン -->
+					<ons-toolbar-button>
+						<ons-icon icon="fa-filter"></ons-icon>
+					</ons-toolbar-button>
+					<!-- トイレ追加ボタン -->
+					<ons-toolbar-button>
+						<ons-icon icon="fa-plus"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+			</ons-toolbar>
+			<!--画面に初手から地図を表示-->
+			<div id="map_canvas" style="width:100%; height:100%"></div>
+			<ons-fab position="bottom left" modifier="mini">
+				<ons-icon icon="md-plus" onclick="navi.pushPage('detail.html')"></ons-icon>
+			</ons-fab>
+		</ons-page>
+	</ons-template>
+
+	<ons-template id="settings.html">
+		<ons-page>
+			<ons-toolbar>
+				<div class="left">
+					<ons-toolbar-button ng-click="splitter.left.open()">
+						<ons-icon icon="md-menu"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center">
+					ログイン
+				</div>
+			</ons-toolbar>
+			<!-- 表示 -->
+		</ons-page>
+	</ons-template>
+
+
+	<ons-template id="about.html">
+		<ons-page>
+			<ons-toolbar>
+				<div class="left">
+					<ons-toolbar-button ng-click="splitter.left.open()">
+						<ons-icon icon="md-menu"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center">
+					せってい
+				</div>
+			</ons-toolbar>
+			このアプリの設定とはいったい何をすればいいのか...
+		</ons-page>
+	</ons-template>
+	<!-- ファイアベースのやつやん -->
+	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyANsAIAhogDgicJA2Xirh-6FUnhIiUAbII",
+    authDomain: "monaca-e455e.firebaseapp.com",
+    databaseURL: "https://monaca-e455e.firebaseio.com",
+    projectId: "monaca-e455e",
+    storageBucket: "monaca-e455e.appspot.com",
+    messagingSenderId: "564051913427"
+  };
+  firebase.initializeApp(config);
+	</script>
+
+	<!-- 音姫起動 -->
+	<audio id="sound-file">
+		<source src="media/otoware.mp3" type="audio/mp3">
+	</audio>
+
+     <ons-popover direction="up" var="popover" cancelable="true">
+       <div style="padding: 10px; text-align: center;">
+        <p>
+            評価内訳
+        </p>
+    </div>
+</ons-popover>
+
+
+</body>
+
+</html>
