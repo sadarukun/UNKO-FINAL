@@ -13,7 +13,6 @@ module.controller('AppController', function ($scope) {
 
  var contentString = '梅田さんの家らしい';
 
-
   function initialize() {
      var mapOptions = {
           center: new google.maps.LatLng(34.703615, 135.509339),    //地図上で表示させる緯度経度
@@ -22,13 +21,14 @@ module.controller('AppController', function ($scope) {
      };
      var map = new google.maps.Map(document.getElementById("map_canvas"),
           mapOptions);
-          var myLatlng = new google.maps.LatLng(34.703615, 135.509339);
+          var myLatlng = new google.maps.LatLng(34.703615, 135.509339); //扇町公園の経度、緯度
           var marker = new google.maps.Marker({
           position: myLatlng,
           title:"梅田の家"
      });
      marker.setMap(map);
-     marker.addListener( "click", function ( ) {
+     　　//ポップアップ表示のやつ
+     marker.addListener( "click", function ( ) { 
            var infowindow = new google.maps.InfoWindow({
                content:contentString
            });
@@ -36,7 +36,6 @@ module.controller('AppController', function ($scope) {
 } ) ;
 }
 
-
-
+//💩
 ons.ready(function () {
 })

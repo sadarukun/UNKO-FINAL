@@ -42,13 +42,7 @@
 
 
 
-    <ons-popover direction="up" var="popover" cancelable="true">
-    <div style="padding: 10px; text-align: center;">
-        <p>
-            評価内訳
-        </p>
-    </div>
-</ons-popover>
+
 	<ons-navigator var="navi" page="splitter.html"></ons-navigator>
 	<ons-template id="splitter.html">
 		<ons-page>
@@ -56,13 +50,13 @@
 				<ons-splitter-side side="left" width="220px" collapse swipeable swipe-target-width="30px">
 					<ons-page>
 						<ons-list>
-							<ons-list-item ng-click="app.load('home.html')" tappable>
+							<ons-list-item ng-click="app.load('home.html')" tappable class="nico">
 								トイレはどこ？
 							</ons-list-item>
-							<ons-list-item ng-click="app.load('settings.html')" tappable>
+							<ons-list-item ng-click="app.load('settings.html')" tappable class="nico">
 								ログイン
 							</ons-list-item>
-							<ons-list-item ng-click="app.load('about.html')" tappable>
+							<ons-list-item ng-click="app.load('about.html')" tappable class="nico">
 								せってい
 							</ons-list-item>
 						</ons-list>
@@ -81,7 +75,7 @@
 						<ons-icon icon="md-menu"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="center">
+				<div class="center nico">
 					トイレログ
 				</div>
 				<div class="right">
@@ -119,7 +113,7 @@
 						<ons-icon icon="md-menu"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="center">
+				<div class="center nico">
 					ログイン
 				</div>
 			</ons-toolbar>
@@ -136,7 +130,7 @@
 						<ons-icon icon="md-menu"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="center">
+				<div class="center nico">
 					せってい
 				</div>
 			</ons-toolbar>
