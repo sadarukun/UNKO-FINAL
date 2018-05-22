@@ -32,18 +32,46 @@
 }
 
 .accordion dd {
-  overflow: hidden;
+  overflow: scroll;
   height: 20vh;
   -webkit-transition: height 0.5s ease;
   transition: height 0.5s ease;
 }
 .accordion dd.hide {
   height: 0;
+  overflow:hidden;
 }
+
+/*スクロールさせようとしてダメだったやつ*/
+/* .accordion ons-page {
+  width:95%;
+  height:30%;
+  top:57vh;
+  border-radius:10px;
+  margin:0 auto;
+  padding:0;
+  overflow-x:hidden;
+  -webkit-transition: height 0.5s ease;
+  transition: height 0.5s ease;
+}
+.accordion ons-page.hide {
+  height: 0;
+} */
 
 .hiddentable{
 	text-align: center;
 	font-size:10vw;
 	table-layout: fixed;
 	width:100%;
+}
+
+.hiddenbox{
+	table-layout: fixed;
+	width:100%;
+	font-size:3vw;
+	vertical-align: middle;
+}
+.unchi{
+	overflow:scroll;
+	height: 60vh;
 }

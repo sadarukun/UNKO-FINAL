@@ -1,9 +1,6 @@
-module.controller('PageController', function ($scope,$location,$anchorScroll) {
-	ons.ready(function () {
-		console.log("Onsen UI is ready!");
-	});
+module.controller('PageController', function ($scope, $location, $anchorScroll) {
 
-	$scope.gotoTop = function(){
+	$scope.gotoTop = function () {
 		$location.hash('topanc')
 		$anchorScroll()
 	}
@@ -54,6 +51,7 @@ module.controller('PageController', function ($scope,$location,$anchorScroll) {
 	// 	}
 	// });
 });
+// レビューのリスト表示
 module.controller('ListController', function () {
 	this.delegate = {
 		configureItemScope: function (index, itemScope) {
@@ -62,14 +60,14 @@ module.controller('ListController', function () {
 		},
 		countItems: function () {
 			//レビュー数を取得してぶちこむ
-			return 12
+			return 50000
 		},
 		calculateItemHeight: function () {
 			return ons.platform.isAndroid() ? 48 : 44
 		}
 	}
 })
-//Reviewsのリストの管理予定地
+//レビュー投稿関連
 module.controller('ReviewController', function ($scope, $timeout) {
 	this.username = ''
 	this.comment = ''
@@ -89,8 +87,6 @@ module.controller('ReviewController', function ($scope, $timeout) {
 			toast.hide()
 		}, 2000)
 	}
-	$scope.flag = true;
-
 })
 
 module.controller('SettingsController', function ($scope, $timeout) {
@@ -103,7 +99,6 @@ module.controller('SettingsController', function ($scope, $timeout) {
 		}, 2000)
 	}
 })
-
 
 //ページ更新云々
 // document.addEventListener('show',function(event){

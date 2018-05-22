@@ -1,20 +1,22 @@
 <!-- <ons-split-view>を使用してタブレットで見た際のレイアウトもやる -->
 <!-- ons-loading-placeholder属性を使用してマップロード中みたいなのも実装しよう -->
 <!-- iosの場合footerにボタンを置く? -->
-<!-- TOPに戻るボタン実装 -->
-<!-- 営業時間はTimePickerで休業日は曜日複数選択 -->
 
+<!-- マーカーの吹き出し押したら飛ぶページ -->
 
-<ons-page id="detail" ng-controller="PageController as Page">
+<ons-page id="detail.html" ng-controller="PageController as Page">
+
+	<div id="topanc"></div>
+
 	<!-- Pull2Refresh 見かけだけなので要修正 -->
 	<!-- lazy-repeatの場合の使い方がよくわかっていない -->
-	<ons-pull-hook ng-action="list.delegate.refresh()" var="loader">
+	<!-- <ons-pull-hook ng-action="list.delegate.refresh()" var="loader">
 		<span ng-switch="loader.state">
-     			<span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon> Pull down to refresh</span>
+     	<span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon> Pull down to refresh</span>
 		<span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon> Release to refresh</span>
 		<span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon> Loading data...</span>
 		</span>
-	</ons-pull-hook>
+	</ons-pull-hook> -->
 
 	<ons-toolbar>
 		<div class="left">
@@ -30,8 +32,6 @@
 	<ons-fab position="bottom right" modifier="mini">
 		<ons-icon icon="md-plus" ng-click="myModal.show()"></ons-icon>
 	</ons-fab>
-
-	<div id="topanc"></div>
 
 	<ons-card style="margin-right:auto">
 		<img src="img/test.jpg" alt="test" title="umeda" height="200dp">
@@ -101,16 +101,21 @@
 					</td>
 				</tr>
 			</table>
-			<br>
-			<!--投稿後更新をかける Pull2Refresh実装予定-->
-			<!-- 内容が長文だとレイアウトが崩れる 要修正(カードにこだわらなければ解決) -->
+		</div>
+	</ons-card>
+	<br>
+	<div>
+		<!--投稿後更新をかける Pull2Refresh実装予定-->
+		<!-- 内容が長文だとレイアウトが崩れる 要修正(カードにこだわらなければ解決) -->
+		<ons-card>
 			<ons-list ng-controller="ListController as list" id="list">
 				<ons-list-header>Reviews</ons-list-header>
+				<div class="unchi">
 				<ons-list-item ons-lazy-repeat="list.delegate">
-					<ons-card style="width:100%">
-						<table>
+					<ons-card style="width:75vw;">
+						<table style="table-layout:fixed;width:100%;">
 							<tr>
-								<td rowspan="2">
+								<td rowspan="2" style="white-space: nowrap;width: 22%;">
 									<img src="img/test.jpg" alt="test" title="umeda" width="45dp">
 								</td>
 								<td style="textalign:left;">ユーザー名</td>
@@ -121,76 +126,11 @@
 						</table>
 					</ons-card>
 				</ons-list-item>
+				<div>
 			</ons-list>
-			<ons-button ng-click="gotoTop()">上じゃ</ons-button>
-	</ons-card>
-</ons-page>
-
-<!--総合評価ポップアップ-->
-<ons-popover direction="up" var="popover" cancelable="true">
-	<div style="padding: 10px; text-align: center;">
-		<p>
-			評価内訳
-		</p>
+		</ons-card>
+		<!-- スクロール監視して動的にボタン出すのめんどすぎたので形式を変えて保留 -->
+		<!-- <ons-button ng-click="gotoTop()">上じゃ</ons-button> -->
 	</div>
-</ons-popover>
 
-<!-- レビュー投稿 -->
-<ons-modal var="myModal" direction="up" ng-controller="ReviewController as rv" class="modal-content">
-
-	<ons-card style="color:black">
-		<div>Reviews</div>
-		<div style="text-align: center; margin-top: 30px">
-			<p>
-				<ons-input id="stars" modifier="underbar" placeholder="★出すとこ" float ng-model="page.stars"></ons-input>
-			</p>
-			<p>
-				<ons-input id="comment" modifier="underbar" placeholder="コメント" float ng-model="page.comment"></ons-input>
-			</p>
-			<ons-button tappable ng-click="myModal.hide()">Cancel</ons-button>
-			<ons-button tappable ng-click="saveReview();showToast()">Submit</ons-button>
-			<mdp-time-picker ng-model="currentDate"></mdp-time-picker>
-		</div>
-		<dl class="accordion">
-			<ons-button tappable ng-click="flag = !flag">open</ons-button>
-
-			<dd ng-class="{hide: flag}">
-				<!--非表示ここから-->
-				<table class="hiddenbox">
-					<tr>
-						<td>営業時間</td>
-						<td colspan="2">
-							<ons-input id="BusinessHours" modifier="underbar" placeholder="例:10:00~21:00" float ng-model="page.businnes"></ons-input>
-						</td>
-					</tr>
-					<tr>
-						<td>休業日</td>
-						<td colspan="2">
-							<ons-input id="Holidays" modifier="underbar" placeholder="毎週月曜日" float ng-model="page.holidays"></ons-input>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<ons-checkbox input-id="check-youshiki" ng-model="page.youshiki"></ons-checkbox> 洋式</td>
-						<td>
-							<ons-checkbox input-id="check-washiki" ng-model="page.washiki"></ons-checkbox> 和式</td>
-						<td>
-							<ons-checkbox input-id="check-washlet" ng-model="page.washlet"></ons-checkbox> ウォシュレット</td>
-					</tr>
-				</table>
-				<!--ここまで-->
-			</dd>
-		</dl>
-	</ons-card>
-</ons-modal>
-
-<!-- submitした時にjsのshowToast()から呼び出されるtoast-->
-<!-- レビュー取り消し等も要るかも -->
-<!-- toastはiPhoneだとfabbuttonがズレてくれなくて重なってしまう 要改善 -->
-<ons-toast var="toast" style="position:fixed">
-	投稿しました<button ng-click="toast.hide()">HIDE</button>
-</ons-toast>
-
-<ons-toast var="toast2" style="position:fixed">
-	トイレ情報を変更しました<button ng-click="toast.hide()">HIDE</button>
-</ons-toast>
+</ons-page>
